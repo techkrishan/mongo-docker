@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  mongo_db:
+    image: mongo
+    restart: unless-stopped
+    tty: true
+    container_name: mongo_db    
+    ports:
+      - "27047:27017"
+    volumes:
+      - ./data:/data/db
+    networks:
+      mongo-db-network:
+        ipv4_address: 172.18.1.2
+
+networks:
+  mongo-db-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.1.0/24
